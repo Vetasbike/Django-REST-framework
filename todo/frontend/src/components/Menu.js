@@ -1,21 +1,21 @@
 import React from "react";
-import {Container, Navbar} from "react-bootstrap";
+import {Container, Nav, Navbar} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {ReactComponent as ReactLogo} from '../logo.svg';
 
 const MenuItem = () => {
     return (
-        <Navbar bg="dark">
-            <Container>
-                <Navbar.Brand href="#home">
-                    <img
-                        src="/logo192.png"
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                        alt="React Bootstrap logo"
-                    />
-                </Navbar.Brand>
-            </Container>
-        </Navbar>
+
+    <Navbar bg="dark" variant="dark">
+        <Container>
+            <ReactLogo width="30" height="30" />
+            <Nav className="me-auto">
+                <Nav.Link as={Link} to="/">Пользователи</Nav.Link>
+                <Nav.Link as={Link} to="/projects">Проекты</Nav.Link>
+                <Nav.Link as={Link} to="/todos">Todo</Nav.Link>
+            </Nav>
+        </Container>
+    </Navbar>
     )
 }
 
