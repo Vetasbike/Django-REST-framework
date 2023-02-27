@@ -1,49 +1,49 @@
 import Table from "react-bootstrap/Table";
 import React from "react";
 
-const UserItem = ({user}) => {
+const TodoItem = ({todo}) => {
     return (
         <tr>
             <td>
-                {user.username}
+                {todo.project}
             </td>
             <td>
-                {user.firstName}
+                {todo.text}
             </td>
             <td>
-                {user.lastName}
+                {todo.user}
             </td>
             <td>
-                {user.email}
+                {todo.createdAt}
             </td>
         </tr>
     )
 }
 
-const UserList = ({users}) => {
+const TodoList = ({todos}) => {
     return (
         <Table striped bordered hover>
             <thead key="thead">
             <tr>
                 <th>
-                    Имя пользователя
+                    Проект
                 </th>
                 <th>
-                    Имя
+                    Текст заметки
                 </th>
                 <th>
-                    Фамилия
+                    Автор заметки
                 </th>
                 <th>
-                    Почта
+                    Создано
                 </th>
             </tr>
             </thead>
             <tbody>
-                {users.map((user) => <UserItem key={user.id} user={user} />)}
+                {todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)}
             </tbody>
         </Table>
     )
 }
 
-export default UserList
+export default TodoList
