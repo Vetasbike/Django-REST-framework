@@ -8,7 +8,7 @@ from userapp.models import User
 
 class Project(models.Model):
     name = models.TextField(verbose_name='Имя проекта', max_length=64, blank=False)
-    link = models.URLField(verbose_name='Ссылка на репозиторий', max_length=64, blank=False)
+    link = models.URLField(verbose_name='Ссылка на репозиторий', max_length=64, blank=False, null=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Пользователи проекта')
 
     class Meta:
@@ -33,3 +33,4 @@ class Todo(models.Model):
 
     def __str__(self):
         return f'{self.text}'
+        
