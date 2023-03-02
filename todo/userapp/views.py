@@ -12,4 +12,3 @@ class UserModelViewSet(mixins.RetrieveModelMixin,
                        GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
-    
