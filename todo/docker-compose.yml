@@ -1,0 +1,48 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:latest
+    privileged: true
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: drf
+      POSTGRES_PASSWORD: 1q2w3e
+      POSTGRES_DB: todo
+#  adminer:
+#    image: adminer:latest
+#    restart: always
+#    ports:
+#      - 8081:8081
+#    depends_on:
+#      - db
+  backend:
+    build:
+      context: backend
+    expose:
+      - 8080
+    command: bash -c "
+      ./wait-for-postgres.sh db
+      && python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py fill_db
+      && python manage.py loaddata --exclude contenttypes todoapp/fixtures/projects.json
+      && python manage.py loaddata --exclude contenttypes todoapp/fixtures/todos.json
+      && gunicorn todo.wsgi -b 0.0.0.0:8080
+      "
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
+  frontend:
+    build: ./frontend
+    privileged: true
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - nginx
